@@ -1,0 +1,59 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+import { getDayOfWeek, getDaysInMonth } from '../utils/dates';
+import Day from './Day.vue'
+import TileGroup from './TileGroup.vue';
+
+const props = defineProps<{
+  activeStartDate: Date
+  showNeighboringMonth?: boolean
+}>()
+
+const { ...otherProps } = props
+
+const year = props.activeStartDate.getFullYear()
+const month = props.activeStartDate.getMonth()
+
+const dateTransform = (day: number) => {
+  const date = new Date()
+  date.setFullYear(year, month, day)
+  date.setHours(0, 0, 0, 0)
+
+  return date
+}
+
+const hasFixedNumberOfWeeks = false || props.showNeighboringMonth
+const dayOfWeek = getDayOfWeek(props.activeStartDate)
+
+const offset = hasFixedNumberOfWeeks ? 0 : dayOfWeek
+
+const start = (hasFixedNumberOfWeeks ? -dayOfWeek : 0) + 1
+
+const end = computed(() => {
+  const daysInMonth = getDaysInMonth(props.activeStartDate)
+
+  if (props.showNeighboringMonth) {
+    const activeEndDate = new Date()
+    activeEndDate.setFullYear(year, month, daysInMonth)
+    activeEndDate.setHours(0, 0, 0, 0)
+    const daysUntilEndOfTheWeek = 7 - getDayOfWeek(activeEndDate) - 1
+
+    return daysInMonth + daysUntilEndOfTheWeek
+  }
+
+  return daysInMonth
+})
+
+</script>
+
+<template>
+  <TileGroup
+    v-bind="otherProps"
+    :count="7"
+    :date-transform="dateTransform"
+    :end="end"
+    :offset="offset"
+    :start="start"
+    :tile="Day"
+  />
+</template>
