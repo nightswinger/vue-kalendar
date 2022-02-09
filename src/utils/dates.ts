@@ -15,6 +15,22 @@ export function getDaysInMonth(date: Date) {
   return getEndOfMonth(date).getDate()
 }
 
+export function getMonthsAgo(date: Date, n: number) {
+  const result = new Date(date.getTime())
+  const month = result.getMonth()
+  result.setMonth(month - n)
+
+  return result
+}
+
+export function getMonthsSince(date: Date, n: number) {
+  const result = new Date(date.getTime())
+  const month = result.getMonth()
+  result.setMonth(month + n)
+
+  return result
+}
+
 export function getWeekNumber(date: Date) {
   const beginOfWeek = getBeginOfWeek(date)
   let year = date.getFullYear() + 1

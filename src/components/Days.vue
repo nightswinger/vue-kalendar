@@ -11,30 +11,30 @@ const props = defineProps<{
 
 const { ...otherProps } = props
 
-const year = props.activeStartDate.getFullYear()
-const month = props.activeStartDate.getMonth()
+const year = computed(() => props.activeStartDate.getFullYear())
+const month = computed(() => props.activeStartDate.getMonth())
 
 const dateTransform = (day: number) => {
   const date = new Date()
-  date.setFullYear(year, month, day)
+  date.setFullYear(year.value, month.value, day)
   date.setHours(0, 0, 0, 0)
 
   return date
 }
 
 const hasFixedNumberOfWeeks = false || props.showNeighboringMonth
-const dayOfWeek = getDayOfWeek(props.activeStartDate)
+const dayOfWeek = computed(() => getDayOfWeek(props.activeStartDate))
 
-const offset = hasFixedNumberOfWeeks ? 0 : dayOfWeek
+const offset = hasFixedNumberOfWeeks ? 0 : dayOfWeek.value
 
-const start = (hasFixedNumberOfWeeks ? -dayOfWeek : 0) + 1
+const start = computed(() => (hasFixedNumberOfWeeks ? -dayOfWeek.value : 0) + 1)
 
 const end = computed(() => {
   const daysInMonth = getDaysInMonth(props.activeStartDate)
 
   if (props.showNeighboringMonth) {
     const activeEndDate = new Date()
-    activeEndDate.setFullYear(year, month, daysInMonth)
+    activeEndDate.setFullYear(year.value, month.value, daysInMonth)
     activeEndDate.setHours(0, 0, 0, 0)
     const daysUntilEndOfTheWeek = 7 - getDayOfWeek(activeEndDate) - 1
 
@@ -43,7 +43,6 @@ const end = computed(() => {
 
   return daysInMonth
 })
-
 </script>
 
 <template>
