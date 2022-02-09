@@ -41,7 +41,7 @@ const view = computed(() => {
 </script>
 
 <template>
-  <div class="kalendar">
+  <div class="vue-kalendar">
     <Navigation
       :active-start-date="activeStartDate"
       :update-active-start-date="updateActiveStartDate"
@@ -55,13 +55,3 @@ const view = computed(() => {
     </div>
   </div>
 </template>
-
-<style scoped>
-.kalendar {
-  width: 350px;
-  max-width: 100%;
-  background: white;
-  border: 1px solid rgb(160, 160, 150);
-  line-height: 1.125rem;
-}
-</style>

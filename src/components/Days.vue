@@ -49,6 +49,7 @@ const end = computed(() => {
   <TileGroup
     v-bind="otherProps"
     :count="7"
+    :current-month="month"
     :date-transform="dateTransform"
     :end="end"
     :offset="offset"

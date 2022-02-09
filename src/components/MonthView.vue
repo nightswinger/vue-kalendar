@@ -11,7 +11,7 @@ defineProps<{
 </script>
 
 <template>
-  <div>
+  <div class="vue-kalendar__month-view">
     <div :style="{ display: 'flex', alignItems: 'flex-end' }">
       <WeekNumbers
         v-if="showWeekNumbers"

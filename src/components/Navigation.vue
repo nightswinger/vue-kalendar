@@ -36,10 +36,12 @@ const onClickPreviousDouble = () => {
 </script>
 
 <template>
-  <div>
+  <div class="vue-kalendar__navigation">
     <button @click="onClickPreviousDouble">«</button>
     <button @click="onClickPrevious">‹</button>
-    <button>
+    <button
+      :style="{ flexGrow: 1 }"
+    >
       <span>
         {{ label }}
       </span>

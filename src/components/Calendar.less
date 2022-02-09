@@ -1,0 +1,73 @@
+.vue-kalendar {
+  width: 350px;
+  max-width: 100%;
+  background: white;
+  border: 1px solid rgb(160, 160, 150);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.125em;
+
+  &,
+  & *,
+  & *:before,
+  & *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  button {
+    margin: 0;
+    border: 0;
+    outline: none;
+
+    &:enabled {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__navigation {
+    display: flex;
+    height: 44px;
+    margin-bottom: 1em;
+
+    button {
+      min-width: 44px;
+      background: none;
+    }
+  }
+
+  &__month-view {
+    &__weekdays {
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 0.75em;
+
+      &__weekday {
+        padding: 0.5em;
+      }
+    }
+
+    &__days {
+      &__day {
+        &--weekend {
+          color: rgb(209, 0, 0);
+        }
+
+        &--neighboringMonth {
+          color: rgb(117, 117, 117);
+        }
+      }
+    }
+  }
+
+  &__tile {
+    max-width: 100%;
+    padding: 10px 6.6667px;
+    background: none;
+    text-align: center;
+    line-height: 16px;
+  }
+}

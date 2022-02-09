@@ -15,7 +15,7 @@ const formatShortWeekday = (date: Date) => Intl.DateTimeFormat('en-US', { weekda
 </script>
 
 <template>
-  <Flex :count="7">
+  <Flex class="vue-kalendar__month-view__weekdays" :count="7">
     <div
       v-for="weekday in 7"
       :key="weekday"

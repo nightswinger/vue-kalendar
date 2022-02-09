@@ -3,6 +3,7 @@ import Flex from './Flex.vue';
 defineProps<{
   activeStartDate: Date
   count: number
+  currentMonth?: number
   dateTransform: Function
   end: number
   offset?: number
@@ -24,6 +25,7 @@ const range = (start: number, end: number, step = 1) => {
     <component
       v-for="point in range(start, end)"
       :is="tile"
+      :current-month="currentMonth"
       :date="dateTransform(point)"
     />
   </Flex>
