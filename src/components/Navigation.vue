@@ -1,7 +1,9 @@
 <script setup lang="ts">import { computed } from 'vue';
+import { getMonthsAgo, getMonthsSince } from '../utils/dates';
 
 const props = defineProps<{
   activeStartDate: Date
+  updateActiveStartDate: Function
   view: string
 }>()
 
@@ -14,18 +16,35 @@ const label = computed(() => {
       throw new Error(`Invalid view: ${props.view}`)
   }
 })
+
+const onClickNext = () => {
+  const newDate = getMonthsSince(props.activeStartDate, 1)
+  props.updateActiveStartDate(newDate)
+}
+const onClickNextDouble = () => {
+  const newDate = getMonthsSince(props.activeStartDate, 12)
+  props.updateActiveStartDate(newDate)
+}
+const onClickPrevious = () => {
+  const newDate = getMonthsAgo(props.activeStartDate, 1)
+  props.updateActiveStartDate(newDate)
+}
+const onClickPreviousDouble = () => {
+  const newDate = getMonthsAgo(props.activeStartDate, 12)
+  props.updateActiveStartDate(newDate)
+}
 </script>
 
 <template>
   <div>
-    <button>«</button>
-    <button>‹</button>
+    <button @click="onClickPreviousDouble">«</button>
+    <button @click="onClickPrevious">‹</button>
     <button>
       <span>
         {{ label }}
       </span>
     </button>
-    <button>›</button>
-    <button>»</button>
+    <button @click="onClickNext">›</button>
+    <button @click="onClickNextDouble">»</button>
   </div>
 </template>
