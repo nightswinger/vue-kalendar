@@ -2,14 +2,16 @@
 import { getBeginOfMonth, getDayOfWeek } from '../utils/dates';
 import Flex from './Flex.vue';
 
-defineProps()
+const props = defineProps<{
+  localeFirstDayOfYear?: number
+}>()
 
 const anyDate = new Date()
 const beginOfMonth = getBeginOfMonth(anyDate)
 const year = beginOfMonth.getFullYear()
 const month = beginOfMonth.getMonth()
 
-const weekdayDate = (i: number) => new Date(year, month, i - getDayOfWeek(beginOfMonth))
+const weekdayDate = (i: number) => new Date(year, month, i - getDayOfWeek(beginOfMonth, props.localeFirstDayOfYear))
 const formatWeekday = (date: Date) => Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date)
 const formatShortWeekday = (date: Date) => Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(date)
 </script>

@@ -6,6 +6,7 @@ import Navigation from './Navigation.vue';
 import YearView from './YearView.vue';
 
 const props = defineProps({
+  localeFirstDayOfYear: { type: Number, default: 0 },
   maxDetail: { type: String, default: 'month' },
   minDetail: { type: String, default: 'century' },
   showNavigation: { type: Boolean, default: true },

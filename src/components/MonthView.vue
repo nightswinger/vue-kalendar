@@ -5,6 +5,7 @@ import Days from './Days.vue';
 
 defineProps<{
   activeStartDate: Date
+  localeFirstDayOfYear: number
   showNeighboringMonth: boolean
   showWeekNumbers?: boolean
 }>()
@@ -23,9 +24,10 @@ defineProps<{
           width: '100%'
         }"
       >
-        <WeekDays />
+        <WeekDays :locale-first-day-of-year="localeFirstDayOfYear" />
         <Days
           :active-start-date="activeStartDate"
+          :locale-first-day-of-year="localeFirstDayOfYear"
           :show-neighboring-month="showNeighboringMonth"
         />
       </div>

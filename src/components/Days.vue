@@ -6,6 +6,7 @@ import TileGroup from './TileGroup.vue';
 
 const props = defineProps<{
   activeStartDate: Date
+  localeFirstDayOfYear?: number
   showNeighboringMonth?: boolean
 }>()
 
@@ -23,7 +24,7 @@ const dateTransform = (day: number) => {
 }
 
 const hasFixedNumberOfWeeks = false || props.showNeighboringMonth
-const dayOfWeek = computed(() => getDayOfWeek(props.activeStartDate))
+const dayOfWeek = computed(() => getDayOfWeek(props.activeStartDate, props.localeFirstDayOfYear))
 
 const offset = hasFixedNumberOfWeeks ? 0 : dayOfWeek.value
 
@@ -36,7 +37,7 @@ const end = computed(() => {
     const activeEndDate = new Date()
     activeEndDate.setFullYear(year.value, month.value, daysInMonth)
     activeEndDate.setHours(0, 0, 0, 0)
-    const daysUntilEndOfTheWeek = 7 - getDayOfWeek(activeEndDate) - 1
+    const daysUntilEndOfTheWeek = 7 - getDayOfWeek(activeEndDate, props.localeFirstDayOfYear) - 1
 
     return daysInMonth + daysUntilEndOfTheWeek
   }

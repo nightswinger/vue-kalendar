@@ -11,17 +11,17 @@ export function getBeginOfYear(date: Date) {
   return new Date(year, 0, 1, 0, 0, 0, 0)
 }
 
-export function getBeginOfWeek(date: Date) {
+export function getBeginOfWeek(date: Date, i: number = 0) {
   const year = date.getFullYear()
   const month = date.getMonth()
-  const day = date.getDate() - getDayOfWeek(date)
+  const day = date.getDate() - getDayOfWeek(date, i)
 
   return new Date(year, month, day)
 }
 
-export function getDayOfWeek(date: Date) {
+export function getDayOfWeek(date: Date, i: number = 0) {
   const weekday = date.getDay()
-  return (weekday + 6) % 7
+  return (weekday + i) % 7
 }
 
 export function getDaysInMonth(date: Date) {
