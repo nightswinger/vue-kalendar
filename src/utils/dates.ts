@@ -1,3 +1,16 @@
+export function getBeginOfMonth(date: Date) {
+  const year = date.getFullYear()
+  const month = date.getMonth()
+  
+  return new Date(year, month, 1, 0, 0, 0, 0)
+}
+
+export function getBeginOfYear(date: Date) {
+  const year = date.getFullYear()
+
+  return new Date(year, 0, 1, 0, 0, 0, 0)
+}
+
 export function getBeginOfWeek(date: Date) {
   const year = date.getFullYear()
   const month = date.getMonth()
@@ -46,11 +59,20 @@ export function getWeekNumber(date: Date) {
   return Math.round((beginOfWeek.getTime() - beginOfFirstWeek.getTime()) / (8.64e7 * 7)) + 1
 }
 
-export function getBeginOfMonth(date: Date) {
-  const year = date.getFullYear()
-  const month = date.getMonth()
-  
-  return new Date(year, month, 1, 0, 0, 0, 0)
+export function getYearsAgo(date: Date, n: number) {
+  const result = new Date(date.getTime())
+  const year = result.getFullYear()
+  result.setFullYear(year - n)
+
+  return result
+}
+
+export function getYearsSince(date: Date, n: number) {
+  const result = new Date(date.getTime())
+  const year = result.getFullYear()
+  result.setFullYear(year + n)
+
+  return result
 }
 
 function getEndOfMonth(date: Date) {
