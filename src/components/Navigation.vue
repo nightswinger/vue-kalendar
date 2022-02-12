@@ -1,5 +1,5 @@
 <script setup lang="ts">import { computed } from 'vue';
-import { getMonthsAgo, getMonthsSince, getYearsAgo, getYearsSince } from '../utils/dates';
+import { getBeginOfDecadeYear, getEndOfDecadeYear, getMonthsAgo, getMonthsSince, getYearsAgo, getYearsSince } from '../utils/dates';
 
 const props = defineProps<{
   activeStartDate: Date
@@ -10,12 +10,20 @@ const props = defineProps<{
 
 const formatMonthYear = (date: Date) => Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(date)
 const formatYear = (date: Date) => Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(date)
+const formatDecadeYearLabel = (date: Date) => {
+  const startDecadeYear = getBeginOfDecadeYear(date)
+  const endDecadeYear = getEndOfDecadeYear(date)
+
+  return Array.from([startDecadeYear, endDecadeYear], date => formatYear(date)).join(' - ')
+}
 const label = computed(() => {
   switch (props.view) {
     case 'month':
       return formatMonthYear(props.activeStartDate)
     case 'year':
       return formatYear(props.activeStartDate)
+    case 'decade':
+      return formatDecadeYearLabel(props.activeStartDate)
     default:
       throw new Error(`Invalid view: ${props.view}`)
   }
@@ -30,6 +38,9 @@ const onClickNext = () => {
     case 'year':
       newDate = getYearsSince(props.activeStartDate, 1)
       break
+    case 'decade':
+      newDate = getYearsSince(props.activeStartDate, 10)
+      break
   }
   props.updateActiveStartDate(newDate)
 }
@@ -41,6 +52,9 @@ const onClickNextDouble = () => {
       break
     case 'year':
       newDate = getYearsSince(props.activeStartDate, 10)
+      break
+    case 'decade':
+      newDate = getYearsSince(props.activeStartDate, 100)
       break
   }
   props.updateActiveStartDate(newDate)
@@ -54,6 +68,9 @@ const onClickPrevious = () => {
     case 'year':
       newDate = getYearsAgo(props.activeStartDate, 1)
       break
+    case 'decade':
+      newDate = getYearsAgo(props.activeStartDate, 10)
+      break
   }
   props.updateActiveStartDate(newDate)
 }
@@ -65,6 +82,9 @@ const onClickPreviousDouble = () => {
       break
     case 'year':
       newDate = getYearsAgo(props.activeStartDate, 10)
+      break
+    case 'decade':
+      newDate = getYearsAgo(props.activeStartDate, 100)
       break
   }
   props.updateActiveStartDate(newDate)
