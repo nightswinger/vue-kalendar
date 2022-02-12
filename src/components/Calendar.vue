@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { computed, reactive } from 'vue';
-import { getBeginOfDecadeYear, getBeginOfMonth, getBeginOfYear } from '../utils/dates';
+import { getBeginOfCenturyYear, getBeginOfDecadeYear, getBeginOfMonth, getBeginOfYear } from '../utils/dates';
 import MonthView from './MonthView.vue';
 import Navigation from './Navigation.vue';
 import YearView from './YearView.vue';
 import DecadeView from './DecadeView.vue';
+import CenturyView from './CenturyView.vue';
 
 const props = defineProps({
   localeFirstDayOfYear: { type: Number, default: 0 },
@@ -27,6 +28,8 @@ const activeStartDate = computed(() => {
       return getBeginOfYear(state.value)
     case 'decade':
       return getBeginOfDecadeYear(state.value)
+    case 'century':
+      return getBeginOfCenturyYear(state.value)
     default:
       throw new Error(`Invalid view: ${view.value}`)
   }
@@ -78,6 +81,11 @@ const drillUp = () => {
       />
       <DecadeView
         v-if="view === 'decade'"
+        :active-start-date="activeStartDate"
+        v-bind="{...props}"
+      />
+      <CenturyView
+        v-if="view === 'century'"
         :active-start-date="activeStartDate"
         v-bind="{...props}"
       />

@@ -1,5 +1,5 @@
 <script setup lang="ts">import { computed } from 'vue';
-import { getBeginOfDecadeYear, getEndOfDecadeYear, getMonthsAgo, getMonthsSince, getYearsAgo, getYearsSince } from '../utils/dates';
+import { getBeginOfCenturyYear, getBeginOfDecadeYear, getEndOfCenturyYear, getEndOfDecadeYear, getMonthsAgo, getMonthsSince, getYearsAgo, getYearsSince } from '../utils/dates';
 
 const props = defineProps<{
   activeStartDate: Date
@@ -16,6 +16,12 @@ const formatDecadeYearLabel = (date: Date) => {
 
   return Array.from([startDecadeYear, endDecadeYear], date => formatYear(date)).join(' - ')
 }
+const formatCenturyYearLabel = (date: Date) => {
+  const startCenturyYear = getBeginOfCenturyYear(date)
+  const endCenturyYear = getEndOfCenturyYear(date)
+
+  return Array.from([startCenturyYear, endCenturyYear], date => formatYear(date)).join(' - ')
+}
 const label = computed(() => {
   switch (props.view) {
     case 'month':
@@ -24,6 +30,8 @@ const label = computed(() => {
       return formatYear(props.activeStartDate)
     case 'decade':
       return formatDecadeYearLabel(props.activeStartDate)
+    case 'century':
+      return formatCenturyYearLabel(props.activeStartDate)
     default:
       throw new Error(`Invalid view: ${props.view}`)
   }
@@ -40,6 +48,9 @@ const onClickNext = () => {
       break
     case 'decade':
       newDate = getYearsSince(props.activeStartDate, 10)
+      break
+    case 'century':
+      newDate = getYearsSince(props.activeStartDate, 100)
       break
   }
   props.updateActiveStartDate(newDate)
@@ -71,6 +82,9 @@ const onClickPrevious = () => {
     case 'decade':
       newDate = getYearsAgo(props.activeStartDate, 10)
       break
+    case 'century':
+      newDate = getYearsAgo(props.activeStartDate, 100)
+      break
   }
   props.updateActiveStartDate(newDate)
 }
@@ -93,10 +107,11 @@ const onClickPreviousDouble = () => {
 
 <template>
   <div class="vue-kalendar__navigation">
-    <button @click="onClickPreviousDouble">«</button>
+    <button v-if="view !== 'century'" @click="onClickPreviousDouble">«</button>
     <button @click="onClickPrevious">‹</button>
     <button
       @click="() => drillUp()"
+      :disabled="view === 'century'"
       :style="{ flexGrow: 1 }"
     >
       <span>
@@ -104,6 +119,6 @@ const onClickPreviousDouble = () => {
       </span>
     </button>
     <button @click="onClickNext">›</button>
-    <button @click="onClickNextDouble">»</button>
+    <button v-if="view !== 'century'" @click="onClickNextDouble">»</button>
   </div>
 </template>

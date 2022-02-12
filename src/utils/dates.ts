@@ -1,3 +1,14 @@
+export function getBeginOfCenturyYear(date: Date) {
+  const year = date.getFullYear()
+  const centuryYear = year + ((-year + 1) % 100)
+
+  const newDate = new Date()
+  newDate.setFullYear(centuryYear, 0, 1)
+  newDate.setHours(0, 0, 0, 0)
+
+  return newDate
+}
+
 export function getBeginOfDecadeYear(date: Date) {
   const year = date.getFullYear()
   const decadeYear = year + ((-year + 1) % 10)
@@ -37,6 +48,12 @@ export function getDayOfWeek(date: Date, i: number = 0) {
 
 export function getDaysInMonth(date: Date) {
   return getEndOfMonth(date).getDate()
+}
+
+export function getEndOfCenturyYear(date: Date) {
+  const nextCenturyYear = getYearsSince(date, 100)
+
+  return new Date(nextCenturyYear.getTime() - 1)
 }
 
 export function getEndOfDecadeYear(date: Date) {

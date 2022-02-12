@@ -8,6 +8,7 @@ defineProps<{
   end: number
   offset?: number
   start: number
+  step?: number
   tile: any
 }>()
 
@@ -23,7 +24,7 @@ const range = (start: number, end: number, step = 1) => {
 <template>
   <Flex :count="count" :offset="offset" wrap>
     <component
-      v-for="point in range(start, end)"
+      v-for="point in range(start, end, step)"
       :is="tile"
       :current-month="currentMonth"
       :date="dateTransform(point)"
