@@ -9,6 +9,13 @@ export function getBeginOfCenturyYear(date: Date) {
   return newDate
 }
 
+export function getBeginOfDay(date: Date) {
+  const newDate = new Date(date.getTime())
+  newDate.setHours(0, 0, 0, 0)
+
+  return newDate
+}
+
 export function getBeginOfDecadeYear(date: Date) {
   const year = date.getFullYear()
   const decadeYear = year + ((-year + 1) % 10)
@@ -54,6 +61,15 @@ export function getEndOfCenturyYear(date: Date) {
   const nextCenturyYear = getYearsSince(date, 100)
 
   return new Date(nextCenturyYear.getTime() - 1)
+}
+
+export function getEndOfDay(date: Date) {
+  const year = date.getFullYear()
+  const month = date.getMonth()
+  const day = date.getDate() + 1
+  const beginOfNextMonth = new Date(year, month, day, 0, 0, 0, 0)
+
+  return new Date(beginOfNextMonth.getTime() - 1)
 }
 
 export function getEndOfDecadeYear(date: Date) {
