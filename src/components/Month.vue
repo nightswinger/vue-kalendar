@@ -1,13 +1,20 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+import Tile from './Tile.vue';
+
 defineProps<{
   date: Date
 }>()
+
+const computedClass = computed(() => {
+  return ['vue-kalendar__year-view__months__month']
+})
 
 const formatMonth = (date: Date) => Intl.DateTimeFormat('en-US', { month: 'long' }).format(date)
 </script>
 
 <template>
-  <div class="vue-kalendar__tile vue-kalendar__year-view__months__month">
+  <Tile :classes="computedClass">
     {{ formatMonth(date) }}
-  </div>
+  </Tile>
 </template>
