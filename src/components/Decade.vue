@@ -1,7 +1,15 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { getBeginOfDecadeYear, getEndOfDecadeYear } from '../utils/dates';
+import Tile from './Tile.vue';
 
 defineProps<{ date: Date }>()
+
+const computedClass = computed(() => {
+  return [
+    'vue-kalendar__century-view__decades__decade'
+  ]
+})
 
 const formatYear = (date: Date) => Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(date)
 const formatDecadeYearLabel = (date: Date) => {
@@ -13,7 +21,7 @@ const formatDecadeYearLabel = (date: Date) => {
 </script>
 
 <template>
-  <div class="vue-kalendar__tile vue-kalendar__century-view__decades__decade">
+  <Tile :classes="computedClass">
     {{ formatDecadeYearLabel(date) }}
-  </div>
+  </Tile>
 </template>
