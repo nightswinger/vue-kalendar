@@ -1,19 +1,24 @@
 <script setup lang="ts">
-import { computed, reactive } from 'vue';
+import { computed, provide, reactive } from 'vue';
 import { getBeginOfCenturyYear, getBeginOfDecadeYear, getBeginOfMonth, getBeginOfYear } from '../utils/dates';
 import MonthView from './MonthView.vue';
 import Navigation from './Navigation.vue';
 import YearView from './YearView.vue';
 import DecadeView from './DecadeView.vue';
 import CenturyView from './CenturyView.vue';
+import { CalendarStoreKey, useCalendar } from '../utils/hooks';
 
 const props = defineProps({
   localeFirstDayOfYear: { type: Number, default: 0 },
   maxDetail: { type: String, default: 'month' },
   minDetail: { type: String, default: 'century' },
+  modelValue: { type: Date },
   showNavigation: { type: Boolean, default: true },
   showNeighboringMonth: { type: Boolean, default: true }
 })
+
+const store = useCalendar(props)
+provide(CalendarStoreKey, store)
 
 const state = reactive({
   value: new Date(),

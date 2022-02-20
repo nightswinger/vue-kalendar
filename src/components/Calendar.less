@@ -111,5 +111,18 @@
         }
       }
     }
+
+    &--active {
+      @bgcolor: rgb(0, 110, 220);
+      background: @bgcolor;
+      color: white;
+
+      &:enabled {
+        &:hover,
+        &:focus {
+          background: lighten(@bgcolor, 10%);
+        }
+      }
+    }
   }
 }
