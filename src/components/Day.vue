@@ -1,5 +1,5 @@
 <script setup lang="ts">import { computed, inject } from 'vue';
-import { getBeginOfDay, getEndOfDay } from '../utils/dates';
+import { getBeginOfDay, getEndOfDay, getMonthsSince } from '../utils/dates';
 import { CalendarStore, CalendarStoreKey } from '../utils/hooks';
 import Tile from './Tile.vue';
 
@@ -9,6 +9,7 @@ const props = defineProps<{
 }>()
 
 const {
+  updateActiveStartDate,
   value,
   updateValue
 } = inject(CalendarStoreKey) as CalendarStore
@@ -43,12 +44,24 @@ const computedClass = computed(() => {
   ]
 })
 const formatDay = (date: Date) => Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(date)
+
+const onClick = (event: MouseEvent) => {
+  if (props.date.getMonth() !== props.currentMonth) {
+    updateActiveStartDate(props.date)
+    
+    const { target } = event
+    if (!(target instanceof HTMLElement)) return
+
+    target?.blur()
+  }
+  updateValue(props.date)
+}
 </script>
 
 <template>
   <Tile
     :classes="computedClass"
-    @click="() => updateValue(date)"
+    @click="(e) => onClick(e)"
   >
     {{ formatDay(date) }}
   </Tile>
