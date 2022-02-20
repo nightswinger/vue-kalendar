@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, provide, reactive } from 'vue';
+import { computed, provide, reactive, watchEffect } from 'vue';
 import { getBeginOfCenturyYear, getBeginOfDecadeYear, getBeginOfMonth, getBeginOfYear } from '../utils/dates';
 import MonthView from './MonthView.vue';
 import Navigation from './Navigation.vue';
@@ -7,6 +7,8 @@ import YearView from './YearView.vue';
 import DecadeView from './DecadeView.vue';
 import CenturyView from './CenturyView.vue';
 import { CalendarStoreKey, useCalendar } from '../utils/hooks';
+
+const emit = defineEmits(['update:modelValue'])
 
 const props = defineProps({
   localeFirstDayOfYear: { type: Number, default: 0 },
@@ -19,6 +21,10 @@ const props = defineProps({
 
 const store = useCalendar(props)
 provide(CalendarStoreKey, store)
+
+const { value } = store
+
+watchEffect(() => emit('update:modelValue', value.value))
 
 const state = reactive({
   value: new Date(),

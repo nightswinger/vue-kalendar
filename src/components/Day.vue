@@ -8,7 +8,10 @@ const props = defineProps<{
   date: Date
 }>()
 
-const { value } = inject(CalendarStoreKey) as CalendarStore
+const {
+  value,
+  updateValue
+} = inject(CalendarStoreKey) as CalendarStore
 
 const isActive = (date: Date) => {
   if (!value.value) return false
@@ -43,7 +46,10 @@ const formatDay = (date: Date) => Intl.DateTimeFormat('en-US', { day: 'numeric' 
 </script>
 
 <template>
-  <Tile :classes="computedClass">
+  <Tile
+    :classes="computedClass"
+    @click="() => updateValue(date)"
+  >
     {{ formatDay(date) }}
   </Tile>
 </template>
