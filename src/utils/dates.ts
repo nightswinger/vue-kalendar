@@ -125,7 +125,7 @@ export function getYearsSince(date: Date, n: number) {
   return result
 }
 
-function getEndOfMonth(date: Date) {
+export function getEndOfMonth(date: Date) {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const beginOfNextMonth = new Date(year, month, 1, 0, 0, 0, 0)

@@ -124,5 +124,17 @@
         }
       }
     }
+
+    &--hasActive {
+      @bgcolor: lighten(rgb(0, 110, 220), 30%);
+      background: @bgcolor;
+
+      &:enabled {
+        &:hover,
+        &:focus {
+          background: lighten(@bgcolor, 10%);
+        }
+      }
+    }
   }
 }
