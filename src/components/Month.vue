@@ -10,6 +10,13 @@ const props = defineProps<{
 
 const { value } = inject(CalendarStoreKey) as CalendarStore
 
+const isNow = (date: Date) => {
+  const now = new Date()
+  const beginOfMonth = getBeginOfMonth(now)
+  const endOfMonth = getEndOfMonth(now)
+
+  return beginOfMonth <= date && endOfMonth >= date
+}
 const hasActive = (date: Date) => {
   const beginOfMonth = getBeginOfMonth(value.value)
   const endOfMonth = getEndOfMonth(value.value)
@@ -19,6 +26,7 @@ const hasActive = (date: Date) => {
 const computedClass = computed(() => {
   return [
     'vue-kalendar__year-view__months__month',
+    { 'vue-kalendar__tile--now': isNow(props.date) },
     { 'vue-kalendar__tile--hasActive': hasActive(props.date) }
   ]
 })
