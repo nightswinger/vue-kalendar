@@ -8,7 +8,11 @@ const props = defineProps<{
   date: Date
 }>()
 
-const { value } = inject(CalendarStoreKey) as CalendarStore
+const {
+  updateActiveStartDate,
+  updateView,
+  value
+} = inject(CalendarStoreKey) as CalendarStore
 
 const isNow = (date: Date) => {
   const now = new Date()
@@ -32,10 +36,18 @@ const computedClass = computed(() => {
 })
 
 const formatMonth = (date: Date) => Intl.DateTimeFormat('en-US', { month: 'long' }).format(date)
+
+const onClick = () => {
+  updateActiveStartDate(props.date)
+  updateView('month')
+}
 </script>
 
 <template>
-  <Tile :classes="computedClass">
+  <Tile
+    :classes="computedClass"
+    @click="onClick"
+  >
     {{ formatMonth(date) }}
   </Tile>
 </template>
