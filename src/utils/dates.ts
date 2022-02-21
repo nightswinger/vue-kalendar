@@ -78,6 +78,13 @@ export function getEndOfDecadeYear(date: Date) {
   return new Date(nextDecadeYear.getTime() - 1)
 }
 
+export function getEndOfYear(date: Date) {
+  const year = date.getFullYear() + 1
+  const beginOfNextYear = new Date(year, 0, 1, 0, 0, 0, 0)
+
+  return new Date(beginOfNextYear.getTime() - 1)
+}
+
 export function getMonthsAgo(date: Date, n: number) {
   const result = new Date(date.getTime())
   const month = result.getMonth()
