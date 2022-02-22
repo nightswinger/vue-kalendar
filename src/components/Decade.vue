@@ -1,13 +1,36 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 import { getBeginOfDecadeYear, getEndOfDecadeYear } from '../utils/dates';
+import type { CalendarStore } from '../utils/hooks';
+import { CalendarStoreKey } from '../utils/hooks';
 import Tile from './Tile.vue';
 
-defineProps<{ date: Date }>()
+const props = defineProps<{ date: Date }>()
 
+const {
+  value
+} = inject(CalendarStoreKey) as CalendarStore
+
+const isNow = (date: Date) => {
+  const now = new Date()
+  const startDecadeYear = getBeginOfDecadeYear(now)
+  const endDecadeYear = getEndOfDecadeYear(now)
+
+  console.log(startDecadeYear, endDecadeYear)
+
+  return startDecadeYear <= date && endDecadeYear >= date
+}
+const hasActive = (date: Date) => {
+  const startDecadeYear = getBeginOfDecadeYear(value.value)
+  const endDecadeYear = getEndOfDecadeYear(value.value)
+
+  return startDecadeYear <= date && endDecadeYear >= date
+}
 const computedClass = computed(() => {
   return [
-    'vue-kalendar__century-view__decades__decade'
+    'vue-kalendar__century-view__decades__decade',
+    { 'vue-kalendar__tile--now': isNow(props.date) },
+    { 'vue-kalendar__tile--hasActive': hasActive(props.date) }
   ]
 })
 

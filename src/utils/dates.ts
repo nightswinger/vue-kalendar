@@ -73,7 +73,8 @@ export function getEndOfDay(date: Date) {
 }
 
 export function getEndOfDecadeYear(date: Date) {
-  const nextDecadeYear = getYearsSince(date, 10)
+  const beginOfDecadeYear = getBeginOfDecadeYear(date)
+  const nextDecadeYear = getYearsSince(beginOfDecadeYear, 10)
 
   return new Date(nextDecadeYear.getTime() - 1)
 }
