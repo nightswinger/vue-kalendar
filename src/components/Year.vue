@@ -9,7 +9,11 @@ const props = defineProps<{
   date: Date
 }>()
 
-const { value } = inject(CalendarStoreKey) as CalendarStore
+const {
+  updateActiveStartDate,
+  updateView,
+  value
+} = inject(CalendarStoreKey) as CalendarStore
 
 const isNow = (date: Date) => {
   const now = new Date()
@@ -32,10 +36,18 @@ const computedClass = computed(() => {
   ]
 })
 const formatYear = (date: Date) => Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(date)
+
+const onClick = () => {
+  updateActiveStartDate(props.date)
+  updateView('year')
+}
 </script>
 
 <template>
-  <Tile :classes="computedClass">
+  <Tile
+    :classes="computedClass"
+    @click="onClick"
+  >
     {{ formatYear(date) }}
   </Tile>
 </template>
