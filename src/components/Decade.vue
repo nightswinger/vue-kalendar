@@ -8,6 +8,8 @@ import Tile from './Tile.vue';
 const props = defineProps<{ date: Date }>()
 
 const {
+  updateActiveStartDate,
+  updateView,
   value
 } = inject(CalendarStoreKey) as CalendarStore
 
@@ -15,8 +17,6 @@ const isNow = (date: Date) => {
   const now = new Date()
   const startDecadeYear = getBeginOfDecadeYear(now)
   const endDecadeYear = getEndOfDecadeYear(now)
-
-  console.log(startDecadeYear, endDecadeYear)
 
   return startDecadeYear <= date && endDecadeYear >= date
 }
@@ -41,10 +41,18 @@ const formatDecadeYearLabel = (date: Date) => {
 
   return Array.from([startDecadeYear, endDecadeYear], date => formatYear(date)).join(' - ')
 }
+
+const onClick = () => {
+  updateActiveStartDate(props.date)
+  updateView('decade')
+}
 </script>
 
 <template>
-  <Tile :classes="computedClass">
+  <Tile
+    :classes="computedClass"
+    @click="onClick"
+  >
     {{ formatDecadeYearLabel(date) }}
   </Tile>
 </template>
