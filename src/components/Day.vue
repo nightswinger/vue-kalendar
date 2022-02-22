@@ -9,6 +9,7 @@ const props = defineProps<{
 }>()
 
 const {
+  maxDate,
   updateActiveStartDate,
   value,
   updateValue
@@ -56,11 +57,14 @@ const onClick = (event: MouseEvent) => {
   }
   updateValue(props.date)
 }
+
+const disabled = computed(() => maxDate.value ? props.date >= maxDate.value : false)
 </script>
 
 <template>
   <Tile
     :classes="computedClass"
+    :disabled="disabled"
     @click="(e) => onClick(e)"
   >
     {{ formatDay(date) }}

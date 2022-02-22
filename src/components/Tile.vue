@@ -1,6 +1,9 @@
 <script setup lang="ts">import { computed } from 'vue';
 
-const props = defineProps<{ classes: any }>()
+const props = defineProps<{
+  classes: any
+  disabled?: boolean
+}>()
 
 const computedClass = computed(() => {
   return [
@@ -13,6 +16,7 @@ const computedClass = computed(() => {
 <template>
   <button
     :class="computedClass"
+    :disabled="disabled"
     type="button"
   >
     <slot></slot>

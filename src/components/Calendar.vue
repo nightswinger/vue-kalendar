@@ -11,6 +11,7 @@ const emit = defineEmits(['update:modelValue'])
 
 const props = defineProps({
   localeFirstDayOfYear: { type: Number, default: 0 },
+  maxDate: { type: Date }, 
   maxDetail: { type: String, default: 'month' },
   minDetail: { type: String, default: 'century' },
   modelValue: { type: Date },
