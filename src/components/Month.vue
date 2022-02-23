@@ -9,6 +9,7 @@ const props = defineProps<{
 }>()
 
 const {
+  maxDate,
   updateActiveStartDate,
   updateView,
   value
@@ -41,11 +42,14 @@ const onClick = () => {
   updateActiveStartDate(props.date)
   updateView('month')
 }
+
+const disabled = computed(() => maxDate.value ? props.date >= maxDate.value : false)
 </script>
 
 <template>
   <Tile
     :classes="computedClass"
+    :disabled="disabled"
     @click="onClick"
   >
     {{ formatMonth(date) }}

@@ -8,6 +8,7 @@ import Tile from './Tile.vue';
 const props = defineProps<{ date: Date }>()
 
 const {
+  maxDate,
   updateActiveStartDate,
   updateView,
   value
@@ -46,11 +47,19 @@ const onClick = () => {
   updateActiveStartDate(props.date)
   updateView('decade')
 }
+
+const disabled = computed(() => {
+  if (!maxDate.value) return false
+
+  const startDecadeYear = getBeginOfDecadeYear(maxDate.value)
+  return props.date > startDecadeYear
+})
 </script>
 
 <template>
   <Tile
     :classes="computedClass"
+    :disabled="disabled"
     @click="onClick"
   >
     {{ formatDecadeYearLabel(date) }}

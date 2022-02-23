@@ -1,5 +1,8 @@
-<script setup lang="ts">import { computed } from 'vue';
+<script setup lang="ts">
+import { computed, inject } from 'vue';
 import { getBeginOfCenturyYear, getBeginOfDecadeYear, getEndOfCenturyYear, getEndOfDecadeYear, getMonthsAgo, getMonthsSince, getYearsAgo, getYearsSince } from '../utils/dates';
+import type { CalendarStore } from '../utils/hooks';
+import { CalendarStoreKey } from '../utils/hooks';
 
 const props = defineProps<{
   activeStartDate: Date
@@ -7,6 +10,10 @@ const props = defineProps<{
   updateActiveStartDate: Function
   view: string
 }>()
+
+const {
+  maxDate
+} = inject(CalendarStoreKey) as CalendarStore
 
 const formatMonthYear = (date: Date) => Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(date)
 const formatYear = (date: Date) => Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(date)
@@ -37,39 +44,32 @@ const label = computed(() => {
   }
 })
 
-const onClickNext = () => {
-  let newDate
+const nextActiveStartDate = computed(() => {
   switch (props.view) {
     case 'month':
-      newDate = getMonthsSince(props.activeStartDate, 1)
-      break
+      return getMonthsSince(props.activeStartDate, 1)
     case 'year':
-      newDate = getYearsSince(props.activeStartDate, 1)
-      break
+      return getYearsSince(props.activeStartDate, 1)
     case 'decade':
-      newDate = getYearsSince(props.activeStartDate, 10)
-      break
+      return getYearsSince(props.activeStartDate, 10)
     case 'century':
-      newDate = getYearsSince(props.activeStartDate, 100)
-      break
+      return getYearsSince(props.activeStartDate, 100)
+    default:
+      throw new Error(`Invalid view: ${props.view}`)
   }
-  props.updateActiveStartDate(newDate)
-}
-const onClickNextDouble = () => {
-  let newDate
+})
+const nextDoubleActiveStartDate = computed(() => {
   switch (props.view) {
     case 'month':
-      newDate = getMonthsSince(props.activeStartDate, 12)
-      break
+      return getMonthsSince(props.activeStartDate, 12)
     case 'year':
-      newDate = getYearsSince(props.activeStartDate, 10)
-      break
+      return getYearsSince(props.activeStartDate, 10)
     case 'decade':
-      newDate = getYearsSince(props.activeStartDate, 100)
-      break
+      return getYearsSince(props.activeStartDate, 100)
+    default:
+      throw new Error(`Invalid view: ${props.view}`)
   }
-  props.updateActiveStartDate(newDate)
-}
+})
 const onClickPrevious = () => {
   let newDate
   switch (props.view) {
@@ -118,7 +118,18 @@ const onClickPreviousDouble = () => {
         {{ label }}
       </span>
     </button>
-    <button @click="onClickNext">›</button>
-    <button v-if="view !== 'century'" @click="onClickNextDouble">»</button>
+    <button
+      @click="() => updateActiveStartDate(nextActiveStartDate)"
+      :disabled="maxDate ? nextActiveStartDate >= maxDate : false"
+    >
+      ›
+    </button>
+    <button
+      v-if="view !== 'century'"
+      @click="() => updateActiveStartDate(nextDoubleActiveStartDate)"
+      :disabled="maxDate ? nextDoubleActiveStartDate >= maxDate : false"
+    >
+      »
+    </button>
   </div>
 </template>
