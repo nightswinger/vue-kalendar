@@ -13,6 +13,7 @@ const props = defineProps({
   localeFirstDayOfYear: { type: Number, default: 0 },
   maxDate: { type: Date }, 
   maxDetail: { type: String, default: 'month' },
+  minDate: { type: Date },
   minDetail: { type: String, default: 'century' },
   modelValue: { type: Date },
   showNavigation: { type: Boolean, default: true },

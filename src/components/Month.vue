@@ -10,6 +10,7 @@ const props = defineProps<{
 
 const {
   maxDate,
+  minDate,
   updateActiveStartDate,
   updateView,
   value
@@ -43,7 +44,10 @@ const onClick = () => {
   updateView('month')
 }
 
-const disabled = computed(() => maxDate.value ? props.date >= maxDate.value : false)
+const disabled = computed(() => {
+  return (maxDate.value ? props.date >= maxDate.value : false) ||
+    (minDate.value ? props.date < getBeginOfMonth(minDate.value) : false)
+})
 </script>
 
 <template>

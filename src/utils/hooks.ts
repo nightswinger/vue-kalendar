@@ -45,10 +45,12 @@ export function useCalendar(props: any) {
   const updateView = (v: string) => state.view = v
 
   const maxDate = computed(() => props.maxDate)
+  const minDate = computed(() => props.minDate)
 
   return {
     activeStartDate,
     maxDate,
+    minDate,
     updateActiveStartDate,
     value,
     updateValue,

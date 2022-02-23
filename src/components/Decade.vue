@@ -9,6 +9,7 @@ const props = defineProps<{ date: Date }>()
 
 const {
   maxDate,
+  minDate,
   updateActiveStartDate,
   updateView,
   value
@@ -49,10 +50,13 @@ const onClick = () => {
 }
 
 const disabled = computed(() => {
-  if (!maxDate.value) return false
+  let maxStartDecadeYear
+  let minStartDecadeYear
+  if (maxDate.value) maxStartDecadeYear = getBeginOfDecadeYear(maxDate.value)
+  if (minDate.value) minStartDecadeYear = getBeginOfDecadeYear(minDate.value)
 
-  const startDecadeYear = getBeginOfDecadeYear(maxDate.value)
-  return props.date > startDecadeYear
+  return (maxStartDecadeYear && (props.date > maxStartDecadeYear)) ||
+    (minStartDecadeYear && (props.date < minStartDecadeYear))
 })
 </script>
 

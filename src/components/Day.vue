@@ -10,6 +10,7 @@ const props = defineProps<{
 
 const {
   maxDate,
+  minDate,
   updateActiveStartDate,
   value,
   updateValue
@@ -58,7 +59,10 @@ const onClick = (event: MouseEvent) => {
   updateValue(props.date)
 }
 
-const disabled = computed(() => maxDate.value ? props.date >= maxDate.value : false)
+const disabled = computed(() => {
+  return (maxDate.value ? props.date > maxDate.value : false) ||
+    (minDate.value ? props.date < minDate.value : false)
+})
 </script>
 
 <template>

@@ -1,6 +1,17 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue';
-import { getBeginOfCenturyYear, getBeginOfDecadeYear, getEndOfCenturyYear, getEndOfDecadeYear, getMonthsAgo, getMonthsSince, getYearsAgo, getYearsSince } from '../utils/dates';
+import {
+  getBeginOfCenturyYear,
+  getBeginOfDecadeYear,
+  getEndOfCenturyYear,
+  getEndOfDecadeYear,
+  getEndOfMonth,
+  getEndOfYear,
+  getMonthsAgo,
+  getMonthsSince,
+  getYearsAgo,
+  getYearsSince
+} from '../utils/dates';
 import type { CalendarStore } from '../utils/hooks';
 import { CalendarStoreKey } from '../utils/hooks';
 
@@ -12,7 +23,8 @@ const props = defineProps<{
 }>()
 
 const {
-  maxDate
+  maxDate,
+  minDate
 } = inject(CalendarStoreKey) as CalendarStore
 
 const formatMonthYear = (date: Date) => Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(date)
@@ -70,45 +82,77 @@ const nextDoubleActiveStartDate = computed(() => {
       throw new Error(`Invalid view: ${props.view}`)
   }
 })
-const onClickPrevious = () => {
-  let newDate
+const prevActiveStartDate = computed(() => {
   switch (props.view) {
     case 'month':
-      newDate = getMonthsAgo(props.activeStartDate, 1)
-      break
+      return getMonthsAgo(props.activeStartDate, 1)
     case 'year':
-      newDate = getYearsAgo(props.activeStartDate, 1)
-      break
+      return getYearsAgo(props.activeStartDate, 1)
     case 'decade':
-      newDate = getYearsAgo(props.activeStartDate, 10)
-      break
+      return getYearsAgo(props.activeStartDate, 10)
     case 'century':
-      newDate = getYearsAgo(props.activeStartDate, 100)
-      break
+      return getYearsAgo(props.activeStartDate, 100)
+    default:
+      throw new Error(`Invalid view: ${props.view}`)
   }
-  props.updateActiveStartDate(newDate)
-}
-const onClickPreviousDouble = () => {
-  let newDate
+})
+const prevDoubleActiveStartDate = computed(() => {
   switch (props.view) {
     case 'month':
-      newDate = getMonthsAgo(props.activeStartDate, 12)
-      break
+      return getMonthsAgo(props.activeStartDate, 12)
     case 'year':
-      newDate = getYearsAgo(props.activeStartDate, 10)
-      break
+      return getYearsAgo(props.activeStartDate, 10)
     case 'decade':
-      newDate = getYearsAgo(props.activeStartDate, 100)
-      break
+      return getYearsAgo(props.activeStartDate, 100)
+    default:
+      throw new Error(`Invalid view: ${props.view}`)
   }
-  props.updateActiveStartDate(newDate)
-}
+})
+const prevActiveEndDate = computed(() => {
+  switch (props.view) {
+    case 'month':
+      return getEndOfMonth(prevActiveStartDate.value)
+    case 'year':
+      return getEndOfYear(prevActiveStartDate.value)
+    case 'decade':
+      return getEndOfDecadeYear(prevActiveStartDate.value)
+    case 'century':
+      return getEndOfCenturyYear(prevActiveStartDate.value)
+    default:
+      throw new Error(`Invalid view: ${props.view}`)
+  }
+})
+const prevDoubleActiveEndDate = computed(() => {
+  switch (props.view) {
+    case 'month':
+      return getEndOfMonth(prevDoubleActiveStartDate.value)
+    case 'year':
+      return getEndOfYear(prevDoubleActiveStartDate.value)
+    case 'decade':
+      return getEndOfDecadeYear(prevDoubleActiveStartDate.value)
+    case 'century':
+      return getEndOfCenturyYear(prevDoubleActiveStartDate.value)
+    default:
+      throw new Error(`Invalid view: ${props.view}`)
+  }
+})
 </script>
 
 <template>
   <div class="vue-kalendar__navigation">
-    <button v-if="view !== 'century'" @click="onClickPreviousDouble">«</button>
-    <button @click="onClickPrevious">‹</button>
+    <button
+      v-if="view !== 'century'"
+      @click="() => updateActiveStartDate(prevDoubleActiveStartDate)"
+      :disabled="minDate ? minDate >= prevDoubleActiveEndDate : false"
+    >
+      «
+    </button>
+    <button
+      @click="() => updateActiveStartDate(prevActiveStartDate)"
+      :disabled="minDate ? minDate >= prevActiveEndDate : false"
+    >
+      ‹
+    </button>
     <button
       @click="() => drillUp()"
       :disabled="view === 'century'"
