@@ -23,12 +23,13 @@ const props = defineProps<{
 }>()
 
 const {
+  locale,
   maxDate,
   minDate
 } = inject(CalendarStoreKey) as CalendarStore
 
-const formatMonthYear = (date: Date) => Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(date)
-const formatYear = (date: Date) => Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(date)
+const formatMonthYear = (date: Date) => Intl.DateTimeFormat(locale.value, { month: 'long', year: 'numeric' }).format(date)
+const formatYear = (date: Date) => Intl.DateTimeFormat(locale.value, { year: 'numeric' }).format(date)
 const formatDecadeYearLabel = (date: Date) => {
   const startDecadeYear = getBeginOfDecadeYear(date)
   const endDecadeYear = getEndOfDecadeYear(date)

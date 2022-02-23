@@ -10,6 +10,7 @@ import { CalendarStoreKey, useCalendar } from '../utils/hooks';
 const emit = defineEmits(['update:modelValue'])
 
 const props = defineProps({
+  locale: { type: String },
   localeFirstDayOfYear: { type: Number, default: 0 },
   maxDate: { type: Date }, 
   maxDetail: { type: String, default: 'month' },

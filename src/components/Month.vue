@@ -9,6 +9,7 @@ const props = defineProps<{
 }>()
 
 const {
+  locale,
   maxDate,
   minDate,
   updateActiveStartDate,
@@ -37,7 +38,7 @@ const computedClass = computed(() => {
   ]
 })
 
-const formatMonth = (date: Date) => Intl.DateTimeFormat('en-US', { month: 'long' }).format(date)
+const formatMonth = (date: Date) => Intl.DateTimeFormat(locale.value, { month: 'long' }).format(date)
 
 const onClick = () => {
   updateActiveStartDate(props.date)
