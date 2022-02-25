@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
+
 const props = defineProps<{
   count: number
   offset?: number
@@ -6,28 +8,27 @@ const props = defineProps<{
 }>()
 
 const flexBasis = `${100 / props.count}%`
-const flexWrap = props.wrap ? 'wrap' : 'nowrap'
+const flexWrap = props.wrap ? 'wrap' as const : 'nowrap' as const
 const marginLeft = props.offset ? `${(100 * props.offset) / props.count}%` : null
+
+const root = ref<HTMLElement | null>(null)
+onMounted(() => {
+  if (!root.value) return
+
+  const { children } = root.value
+  Array.from(children as HTMLCollectionOf<HTMLElement>).map((child, index) => {
+    child.style.flexBasis = flexBasis
+    child.style.flexGrow = '0'
+    child.style.flexShrink = '0'
+    child.style.overflow = 'hidden'
+
+    if (index === 0 && marginLeft) child.style.marginLeft = marginLeft
+  })
+})
 </script>
 
 <template>
-  <div class="flex">
+  <div ref="root" :style="{ display: 'flex', flexWrap: flexWrap }">
     <slot></slot>
   </div>
 </template>
-
-<style scoped>
-.flex {
-  display: flex;
-  flex-wrap: v-bind(flexWrap);
-}
-:slotted(*) {
-  flex-basis: v-bind(flexBasis);
-  flex-grow: 0;
-  flex-shrink: 0;
-  overflow: hidden;
-}
-:slotted(*:first-child) {
-  margin-left: v-bind(marginLeft);
-}
-</style>
