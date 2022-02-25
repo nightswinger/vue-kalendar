@@ -1,6 +1,16 @@
 {
-  "name": "vue-kalendar",
-  "version": "0.0.0",
+  "name": "v-kalendar",
+  "version": "0.1.0",
+  "files": ["dist"],
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js"
+    }
+  },
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit --skipLibCheck && vite build",
