@@ -2,6 +2,10 @@
 
 Vue implementation of [react-calendar](https://github.com/wojtekmaj/react-calendar)
 
+## Demo
+
+Try online demo [here](https://stackblitz.com/edit/vue-mjmwn4)
+
 ## Install
 
 ```bash
