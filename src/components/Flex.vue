@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, onUpdated, ref } from 'vue';
 
 const props = defineProps<{
   count: number
@@ -12,7 +12,7 @@ const flexWrap = props.wrap ? 'wrap' as const : 'nowrap' as const
 const marginLeft = props.offset ? `${(100 * props.offset) / props.count}%` : null
 
 const root = ref<HTMLElement | null>(null)
-onMounted(() => {
+const styleChildComponents = () => {
   if (!root.value) return
 
   const { children } = root.value
@@ -24,7 +24,9 @@ onMounted(() => {
 
     if (index === 0 && marginLeft) child.style.marginLeft = marginLeft
   })
-})
+}
+onMounted(() => styleChildComponents())
+onUpdated(() => styleChildComponents())
 </script>
 
 <template>
