@@ -9,16 +9,22 @@ import { CalendarStoreKey, useCalendar } from '../utils/hooks';
 
 const emit = defineEmits(['update:modelValue'])
 
-const props = defineProps({
-  locale: { type: String },
-  localeFirstDayOfYear: { type: Number, default: 0 },
-  maxDate: { type: Date }, 
-  maxDetail: { type: String, default: 'month' },
-  minDate: { type: Date },
-  minDetail: { type: String, default: 'century' },
-  modelValue: { type: Date },
-  showNavigation: { type: Boolean, default: true },
-  showNeighboringMonth: { type: Boolean, default: true }
+const props = withDefaults(defineProps<{
+  locale?: string
+  localeFirstDayOfYear?: number
+  maxDate?: Date
+  maxDetail?: string
+  minDate?: Date
+  minDetail?: string
+  modelValue?: Date
+  showNavigation?: boolean
+  showNeighboringMonth?: boolean
+}>(), {
+  localeFirstDayOfYear: 0,
+  maxDetail: 'month',
+  minDetail: 'century',
+  showNavigation: true,
+  showNeighboringMonth: true
 })
 
 const store = useCalendar(props)
