@@ -31,3 +31,13 @@ app.use(VKalendar)
   <Calendar v-model="date" />
 </template>
 ```
+
+## Properties
+
+| Prop                  | Type            | Default     | Description                                                   |
+|-----------------------|-----------------|-------------|---------------------------------------------------------------|
+| locale                | String          | `undefined` | Locale to use for the calendar                                |
+| localeFirstDayOfYear  | Number          | `0`         | Number for the first day of the week                          |
+| maxDate               | Date            | `undefined` | Maximum allowed date                                          |
+| minDate               | Date            | `undefined` | Minimum allowed date                                          |
+| showNeighboringMonth  | Boolean         | `true`      | Visibility of days from previous and next months              |
