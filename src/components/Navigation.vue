@@ -16,13 +16,13 @@ import type { CalendarStore } from '../utils/hooks';
 import { CalendarStoreKey } from '../utils/hooks';
 
 const props = defineProps<{
-  activeStartDate: Date
   drillUp: Function
   updateActiveStartDate: Function
   view: string
 }>()
 
 const {
+  activeStartDate,
   locale,
   maxDate,
   minDate
@@ -45,13 +45,13 @@ const formatCenturyYearLabel = (date: Date) => {
 const label = computed(() => {
   switch (props.view) {
     case 'month':
-      return formatMonthYear(props.activeStartDate)
+      return formatMonthYear(activeStartDate.value)
     case 'year':
-      return formatYear(props.activeStartDate)
+      return formatYear(activeStartDate.value)
     case 'decade':
-      return formatDecadeYearLabel(props.activeStartDate)
+      return formatDecadeYearLabel(activeStartDate.value)
     case 'century':
-      return formatCenturyYearLabel(props.activeStartDate)
+      return formatCenturyYearLabel(activeStartDate.value)
     default:
       throw new Error(`Invalid view: ${props.view}`)
   }
@@ -60,13 +60,13 @@ const label = computed(() => {
 const nextActiveStartDate = computed(() => {
   switch (props.view) {
     case 'month':
-      return getMonthsSince(props.activeStartDate, 1)
+      return getMonthsSince(activeStartDate.value, 1)
     case 'year':
-      return getYearsSince(props.activeStartDate, 1)
+      return getYearsSince(activeStartDate.value, 1)
     case 'decade':
-      return getYearsSince(props.activeStartDate, 10)
+      return getYearsSince(activeStartDate.value, 10)
     case 'century':
-      return getYearsSince(props.activeStartDate, 100)
+      return getYearsSince(activeStartDate.value, 100)
     default:
       throw new Error(`Invalid view: ${props.view}`)
   }
@@ -74,11 +74,11 @@ const nextActiveStartDate = computed(() => {
 const nextDoubleActiveStartDate = computed(() => {
   switch (props.view) {
     case 'month':
-      return getMonthsSince(props.activeStartDate, 12)
+      return getMonthsSince(activeStartDate.value, 12)
     case 'year':
-      return getYearsSince(props.activeStartDate, 10)
+      return getYearsSince(activeStartDate.value, 10)
     case 'decade':
-      return getYearsSince(props.activeStartDate, 100)
+      return getYearsSince(activeStartDate.value, 100)
     default:
       throw new Error(`Invalid view: ${props.view}`)
   }
@@ -86,13 +86,13 @@ const nextDoubleActiveStartDate = computed(() => {
 const prevActiveStartDate = computed(() => {
   switch (props.view) {
     case 'month':
-      return getMonthsAgo(props.activeStartDate, 1)
+      return getMonthsAgo(activeStartDate.value, 1)
     case 'year':
-      return getYearsAgo(props.activeStartDate, 1)
+      return getYearsAgo(activeStartDate.value, 1)
     case 'decade':
-      return getYearsAgo(props.activeStartDate, 10)
+      return getYearsAgo(activeStartDate.value, 10)
     case 'century':
-      return getYearsAgo(props.activeStartDate, 100)
+      return getYearsAgo(activeStartDate.value, 100)
     default:
       throw new Error(`Invalid view: ${props.view}`)
   }
@@ -100,11 +100,11 @@ const prevActiveStartDate = computed(() => {
 const prevDoubleActiveStartDate = computed(() => {
   switch (props.view) {
     case 'month':
-      return getMonthsAgo(props.activeStartDate, 12)
+      return getMonthsAgo(activeStartDate.value, 12)
     case 'year':
-      return getYearsAgo(props.activeStartDate, 10)
+      return getYearsAgo(activeStartDate.value, 10)
     case 'decade':
-      return getYearsAgo(props.activeStartDate, 100)
+      return getYearsAgo(activeStartDate.value, 100)
     default:
       throw new Error(`Invalid view: ${props.view}`)
   }

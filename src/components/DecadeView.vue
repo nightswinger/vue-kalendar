@@ -1,7 +1,12 @@
 <script setup lang="ts">
+import { inject } from 'vue';
 import Years from './Years.vue';
+import type { CalendarStore } from '../utils/hooks';
+import { CalendarStoreKey } from '../utils/hooks';
 
-defineProps<{ activeStartDate: Date }>()
+const {
+  activeStartDate,
+} = inject(CalendarStoreKey) as CalendarStore
 </script>
 
 <template>

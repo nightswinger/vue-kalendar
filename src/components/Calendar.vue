@@ -10,6 +10,7 @@ import { CalendarStoreKey, useCalendar } from '../utils/hooks';
 const emit = defineEmits(['update:modelValue'])
 
 const props = withDefaults(defineProps<{
+  activeStartDate?: Date
   locale?: string
   localeFirstDayOfYear?: number
   maxDate?: Date
@@ -31,7 +32,6 @@ const store = useCalendar(props)
 provide(CalendarStoreKey, store)
 
 const {
-  activeStartDate,
   updateActiveStartDate,
   value,
   view,
@@ -50,7 +50,6 @@ const drillUp = () => {
 <template>
   <div class="vue-kalendar">
     <Navigation
-      :active-start-date="activeStartDate"
       :drill-up="drillUp"
       :update-active-start-date="updateActiveStartDate"
       :view="view"
@@ -58,22 +57,18 @@ const drillUp = () => {
     <div>
       <MonthView
         v-if="view === 'month'"
-        :active-start-date="activeStartDate"
         v-bind="{...props}"
       />
       <YearView
         v-if="view === 'year'"
-        :active-start-date="activeStartDate"
         v-bind="{...props}"
       />
       <DecadeView
         v-if="view === 'decade'"
-        :active-start-date="activeStartDate"
         v-bind="{...props}"
       />
       <CenturyView
         v-if="view === 'century'"
-        :active-start-date="activeStartDate"
         v-bind="{...props}"
       />
     </div>

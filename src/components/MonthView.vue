@@ -1,14 +1,20 @@
 <script setup lang="ts">
+import { inject } from 'vue';
 import WeekNumbers from './WeekNumbers.vue';
 import WeekDays from './WeekDays.vue';
 import Days from './Days.vue';
+import type { CalendarStore } from '../utils/hooks';
+import { CalendarStoreKey } from '../utils/hooks';
 
 defineProps<{
-  activeStartDate: Date
   localeFirstDayOfYear: number
   showNeighboringMonth: boolean
   showWeekNumbers?: boolean
 }>()
+
+const {
+  activeStartDate,
+} = inject(CalendarStoreKey) as CalendarStore
 </script>
 
 <template>
