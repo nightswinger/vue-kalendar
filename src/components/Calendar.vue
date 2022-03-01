@@ -20,12 +20,14 @@ const props = withDefaults(defineProps<{
   modelValue?: Date
   showNavigation?: boolean
   showNeighboringMonth?: boolean
+  showWeekNumbers?: boolean
 }>(), {
   localeFirstDayOfYear: 0,
   maxDetail: 'month',
   minDetail: 'century',
   showNavigation: true,
-  showNeighboringMonth: true
+  showNeighboringMonth: true,
+  showWeekNumbers: false
 })
 
 const store = useCalendar(props)

@@ -3,5 +3,5 @@ defineProps<{ weekNumber: number }>()
 </script>
 
 <template>
-  <div>{{ weekNumber }}</div>
+  <div class="vue-kalendar__tile">{{ weekNumber }}</div>
 </template>

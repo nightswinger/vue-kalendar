@@ -33,6 +33,7 @@ const weekNumbers = computed(() => dates.value.map(date => getWeekNumber(date)))
 
 <template>
   <div
+    class="vue-kalendar__month-view__weekNumbers"
     :style="{
       display: 'flex',
       flexBasis: 'calc(100% * (1 / 8))',
