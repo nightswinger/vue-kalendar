@@ -42,3 +42,4 @@ app.use(VKalendar)
 | maxDate               | Date            | `undefined` | Maximum allowed date                                          |
 | minDate               | Date            | `undefined` | Minimum allowed date                                          |
 | showNeighboringMonth  | Boolean         | `true`      | Visibility of days from previous and next months              |
+| showWeekNumbers       | Boolean         | `false`     | Visibility of the week numbers                                |
