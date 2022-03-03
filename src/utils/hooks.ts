@@ -44,6 +44,8 @@ export function useCalendar(props: any) {
   })
   const updateView = (v: string) => state.view = v
 
+  const maxDetail = computed(() => props.maxDetail)
+
   const locale = computed(() => props.locale ? props.locale : new Intl.DateTimeFormat().resolvedOptions().locale)
 
   const maxDate = computed(() => props.maxDate)
@@ -53,6 +55,7 @@ export function useCalendar(props: any) {
     activeStartDate,
     locale,
     maxDate,
+    maxDetail,
     minDate,
     updateActiveStartDate,
     value,

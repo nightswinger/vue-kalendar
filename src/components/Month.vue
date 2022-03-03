@@ -11,12 +11,15 @@ const props = defineProps<{
 const {
   locale,
   maxDate,
+  maxDetail,
   minDate,
   updateActiveStartDate,
+  updateValue,
   updateView,
   value
 } = inject(CalendarStoreKey) as CalendarStore
 
+const isActive = (date: Date) => date.getTime() === value.value.getTime()
 const isNow = (date: Date) => {
   const now = new Date()
   const beginOfMonth = getBeginOfMonth(now)
@@ -33,8 +36,9 @@ const hasActive = (date: Date) => {
 const computedClass = computed(() => {
   return [
     'vue-kalendar__year-view__months__month',
+    { 'vue-kalendar__tile--active': isActive(props.date) },
     { 'vue-kalendar__tile--now': isNow(props.date) },
-    { 'vue-kalendar__tile--hasActive': hasActive(props.date) }
+    { 'vue-kalendar__tile--hasActive': !isActive(props.date) && hasActive(props.date) }
   ]
 })
 
@@ -43,6 +47,10 @@ const formatMonth = (date: Date) => Intl.DateTimeFormat(locale.value, { month: '
 const onClick = () => {
   updateActiveStartDate(props.date)
   updateView('month')
+
+  if (maxDetail.value === 'year') {
+    updateValue(props.date)
+  }
 }
 
 const disabled = computed(() => {

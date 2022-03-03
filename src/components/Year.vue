@@ -11,12 +11,15 @@ const props = defineProps<{
 
 const {
   maxDate,
+  maxDetail,
   minDate,
   updateActiveStartDate,
+  updateValue,
   updateView,
   value
 } = inject(CalendarStoreKey) as CalendarStore
 
+const isActive = (date: Date) => date.getTime() === value.value.getTime()
 const isNow = (date: Date) => {
   const now = new Date()
   const beginOfYear = getBeginOfYear(now)
@@ -33,8 +36,9 @@ const hasActive = (date: Date) => {
 const computedClass = computed(() => {
   return [
     'vue-kalendar__decade-view__years__year',
+    { 'vue-kalendar__tile--active': isActive(props.date) },
     { 'vue-kalendar__tile--now': isNow(props.date) },
-    { 'vue-kalendar__tile--hasActive': hasActive(props.date) }
+    { 'vue-kalendar__tile--hasActive': !isActive(props.date) && hasActive(props.date) }
   ]
 })
 const formatYear = (date: Date) => Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(date)
@@ -42,6 +46,10 @@ const formatYear = (date: Date) => Intl.DateTimeFormat('en-US', { year: 'numeric
 const onClick = () => {
   updateActiveStartDate(props.date)
   updateView('year')
+
+  if (maxDetail.value === 'decade') {
+    updateValue(props.date)
+  }
 }
 
 const disabled = computed(() => {
