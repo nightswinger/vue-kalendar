@@ -25,7 +25,8 @@ const {
   activeStartDate,
   locale,
   maxDate,
-  minDate
+  minDate,
+  minDetail
 } = inject(CalendarStoreKey) as CalendarStore
 
 const formatMonthYear = (date: Date) => Intl.DateTimeFormat(locale.value, { month: 'long', year: 'numeric' }).format(date)
@@ -156,7 +157,7 @@ const prevDoubleActiveEndDate = computed(() => {
     </button>
     <button
       @click="() => drillUp()"
-      :disabled="view === 'century'"
+      :disabled="view === 'century' || view === minDetail"
       :style="{ flexGrow: 1 }"
     >
       <span>
