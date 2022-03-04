@@ -40,6 +40,8 @@ app.use(VKalendar)
 | locale                | String          | `undefined` | Locale to use for the calendar                                |
 | localeFirstDayOfYear  | Number          | `0`         | Number for the first day of the week                          |
 | maxDate               | Date            | `undefined` | Maximum allowed date                                          |
+| maxDetail             | String          | `month`     | Most Detailed view that user can see                          |
 | minDate               | Date            | `undefined` | Minimum allowed date                                          |
+| minDetail             | String          | `century`   | Least detailed view that user can see                         |
 | showNeighboringMonth  | Boolean         | `true`      | Visibility of days from previous and next months              |
 | showWeekNumbers       | Boolean         | `false`     | Visibility of the week numbers                                |
