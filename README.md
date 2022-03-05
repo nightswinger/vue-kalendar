@@ -37,6 +37,7 @@ app.use(VKalendar)
 | Prop                  | Type            | Default     | Description                                                   |
 |-----------------------|-----------------|-------------|---------------------------------------------------------------|
 | activeStartDate       | Date            | `new Date()`| Beginning of a period that shall be displayed                 |
+| defaultView           | String          | `month`     | Determines which view is being displayed initially            |
 | locale                | String          | `undefined` | Locale to use for the calendar                                |
 | localeFirstDayOfYear  | Number          | `0`         | Number for the first day of the week                          |
 | maxDate               | Date            | `undefined` | Maximum allowed date                                          |

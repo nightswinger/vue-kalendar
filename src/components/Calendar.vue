@@ -11,6 +11,7 @@ const emit = defineEmits(['update:modelValue'])
 
 const props = withDefaults(defineProps<{
   activeStartDate?: Date
+  defaultView?: string
   locale?: string
   localeFirstDayOfYear?: number
   maxDate?: Date
@@ -22,6 +23,7 @@ const props = withDefaults(defineProps<{
   showNeighboringMonth?: boolean
   showWeekNumbers?: boolean
 }>(), {
+  defaultView: 'month',
   localeFirstDayOfYear: 0,
   maxDetail: 'month',
   minDetail: 'century',

@@ -9,7 +9,7 @@ export function useCalendar(props: any) {
   const state = reactive({
     activeStartDate: props.activeStartDate || new Date(),
     value: props.modelValue || new Date(),
-    view: ''
+    view: props.defaultView
   })
 
   const activeStartDate = computed(() => {
