@@ -8,7 +8,7 @@ export const CalendarStoreKey: InjectionKey<CalendarStore> = Symbol('CalendarSto
 export function useCalendar(props: any) {
   const state = reactive({
     activeStartDate: props.activeStartDate || new Date(),
-    value: props.modelValue,
+    value: props.modelValue || new Date(),
     view: ''
   })
 
