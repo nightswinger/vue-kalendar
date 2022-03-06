@@ -14,16 +14,24 @@ Try online demo [here](https://stackblitz.com/edit/vue-mjmwn4)
 # npm
 npm install v-kalendar
 
-#yarn
+# yarn
 yarn add v-kalendar
 ```
 
 ## Usage
 
+Install the plugin into Vue:
+
 ```js
 import VKalendar from 'v-kalendar'
 
 app.use(VKalendar)
+```
+
+Add the default CSS:
+
+```js
+import 'v-kalendar/dist/style.css'
 ```
 
 ```html
