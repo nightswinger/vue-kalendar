@@ -1,14 +1,38 @@
 import { computed, InjectionKey, reactive } from "vue";
-import { getBeginOfCenturyYear, getBeginOfDecadeYear, getBeginOfMonth, getBeginOfYear } from '../utils/dates';
+import {
+  getBeginOfCenturyYear,
+  getBeginOfDecadeYear,
+  getBeginOfMonth,
+  getBeginOfYear,
+  getEndOfDay,
+  getEndOfDecadeYear,
+  getEndOfMonth,
+  getEndOfYear
+} from '../utils/dates';
 
 export type CalendarStore = ReturnType<typeof useCalendar>
 
 export const CalendarStoreKey: InjectionKey<CalendarStore> = Symbol('CalendarStore')
 
+function getEndDate(date: Date, view: string = 'month') {
+  switch (view) {
+    case 'month':
+      return getEndOfDay(date)
+    case 'year':
+      return getEndOfMonth(date)
+    case 'decade':
+      return getEndOfYear(date)
+    case 'century':
+      return getEndOfDecadeYear(date)
+    default:
+      throw new Error(`Invalid view: ${view}`)
+  }
+}
+
 export function useCalendar(props: any) {
   const state = reactive({
     activeStartDate: props.activeStartDate || new Date(),
-    value: props.modelValue || new Date(),
+    value: props.selectRange ? [...props.modelValue] : props.modelValue || new Date(),
     view: props.defaultView
   })
 
@@ -29,7 +53,29 @@ export function useCalendar(props: any) {
   const updateActiveStartDate = (date: Date) => state.activeStartDate = date
 
   const value = computed(() => state.value)
-  const updateValue = (date: Date) => state.value = date
+  const isRange = computed(() => !!props.selectRange)
+  const isDateInRange = (range: Date[]) => {
+    if (!value.value) return false
+
+    const [begin, end] = range
+    if (!isRange.value) return begin <= value.value && end >= value.value
+
+    const [from, to] = value.value
+    return (begin <= from && end >= from) || (from <= begin && to >= end)
+  }
+
+  const updateValue = (date: Date) => {
+    if (!isRange.value) return state.value = date
+    
+    if (state.value.length === 1) {
+      const [begin] = state.value
+      state.value = begin < date ? 
+        [begin, getEndDate(date, props.maxDetail)] :
+        [date, getEndDate(begin, props.maxDetail)]
+    } else {
+      state.value = [date]
+    }
+  }
 
   const allViews = ['century', 'decade', 'year', 'month']
   const limitedViews = allViews.slice(
@@ -54,6 +100,8 @@ export function useCalendar(props: any) {
 
   return {
     activeStartDate,
+    isDateInRange,
+    isRange,
     locale,
     maxDate,
     maxDetail,

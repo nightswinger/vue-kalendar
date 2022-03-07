@@ -9,6 +9,7 @@ const props = defineProps<{
 }>()
 
 const {
+  isRange,
   locale,
   maxDate,
   maxDetail,
@@ -19,7 +20,7 @@ const {
   value
 } = inject(CalendarStoreKey) as CalendarStore
 
-const isActive = (date: Date) => date.getTime() === value.value.getTime()
+const isActive = (date: Date) => !isRange.value ? date.getTime() === value.value.getTime() : false
 const isNow = (date: Date) => {
   const now = new Date()
   const beginOfMonth = getBeginOfMonth(now)
@@ -28,10 +29,17 @@ const isNow = (date: Date) => {
   return beginOfMonth <= date && endOfMonth >= date
 }
 const hasActive = (date: Date) => {
-  const beginOfMonth = getBeginOfMonth(value.value)
-  const endOfMonth = getEndOfMonth(value.value)
+  const beginOfMonth = getBeginOfMonth(date)
+  const endOfMonth = getEndOfMonth(date)
 
-  return beginOfMonth <= date && endOfMonth >= date
+  if (isRange.value) {
+    const [from, to] = value.value
+    return (beginOfMonth <= from && endOfMonth >= from) ||
+      (beginOfMonth <= to && endOfMonth >= to) ||
+      (beginOfMonth >= from && endOfMonth <= to)
+  }
+
+  return beginOfMonth <= value.value && endOfMonth >= value.value
 }
 const computedClass = computed(() => {
   return [

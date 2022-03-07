@@ -8,6 +8,7 @@ import Tile from './Tile.vue';
 const props = defineProps<{ date: Date }>()
 
 const {
+  isRange,
   maxDate,
   maxDetail,
   minDate,
@@ -17,7 +18,7 @@ const {
   value
 } = inject(CalendarStoreKey) as CalendarStore
 
-const isActive = (date: Date) => date.getTime() === value.value.getTime()
+const isActive = (date: Date) => !isRange.value ? date.getTime() === value.value.getTime() : false
 const isNow = (date: Date) => {
   const now = new Date()
   const startDecadeYear = getBeginOfDecadeYear(now)
@@ -26,10 +27,17 @@ const isNow = (date: Date) => {
   return startDecadeYear <= date && endDecadeYear >= date
 }
 const hasActive = (date: Date) => {
-  const startDecadeYear = getBeginOfDecadeYear(value.value)
-  const endDecadeYear = getEndOfDecadeYear(value.value)
+  const startDecadeYear = getBeginOfDecadeYear(date)
+  const endDecadeYear = getEndOfDecadeYear(date)
 
-  return startDecadeYear <= date && endDecadeYear >= date
+  if (isRange.value) {
+    const [from, to] = value.value
+    return (startDecadeYear <= from && endDecadeYear >= from) ||
+      (startDecadeYear <= to && endDecadeYear >= to) ||
+      (startDecadeYear >= from && endDecadeYear <= to)
+  }
+
+  return startDecadeYear <= value.value && endDecadeYear >= value.value
 }
 const computedClass = computed(() => {
   return [

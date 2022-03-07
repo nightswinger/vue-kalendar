@@ -52,5 +52,6 @@ import 'v-kalendar/dist/style.css'
 | maxDetail             | String          | `month`     | Most Detailed view that user can see                          |
 | minDate               | Date            | `undefined` | Minimum allowed date                                          |
 | minDetail             | String          | `century`   | Least detailed view that user can see                         |
+| selectRange           | Boolean         | `false`     | Allow the selection of date range                             |
 | showNeighboringMonth  | Boolean         | `true`      | Visibility of days from previous and next months              |
 | showWeekNumbers       | Boolean         | `false`     | Visibility of the week numbers                                |

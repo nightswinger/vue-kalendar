@@ -9,20 +9,18 @@ const props = defineProps<{
 }>()
 
 const {
+  isDateInRange,
   maxDate,
   minDate,
   updateActiveStartDate,
-  value,
   updateValue
 } = inject(CalendarStoreKey) as CalendarStore
 
 const isActive = (date: Date) => {
-  if (!value.value) return false
-
   const beginOfDay = getBeginOfDay(date)
   const endOfDay = getEndOfDay(date)
 
-  return beginOfDay <= value.value && endOfDay >= value.value
+  return isDateInRange([beginOfDay, endOfDay])
 }
 const isNow = (date: Date) => {
   const now = new Date()

@@ -18,7 +18,8 @@ const props = withDefaults(defineProps<{
   maxDetail?: string
   minDate?: Date
   minDetail?: string
-  modelValue?: Date
+  modelValue?: Date | Date[]
+  selectRange?: boolean
   showNavigation?: boolean
   showNeighboringMonth?: boolean
   showWeekNumbers?: boolean
@@ -27,6 +28,7 @@ const props = withDefaults(defineProps<{
   localeFirstDayOfYear: 0,
   maxDetail: 'month',
   minDetail: 'century',
+  selectRange: false,
   showNavigation: true,
   showNeighboringMonth: true,
   showWeekNumbers: false
