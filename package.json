@@ -13,6 +13,7 @@
     }
   },
   "license": "MIT",
+  "keywords": ["vue", "calendar"],
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit --skipLibCheck && vite build",
