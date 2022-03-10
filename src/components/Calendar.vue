@@ -60,7 +60,7 @@ const drillUp = () => {
       :update-active-start-date="updateActiveStartDate"
       :view="view"
     />
-    <div>
+    <div class="vue-kalendar__viewContainer">
       <MonthView
         v-if="view === 'month'"
         v-bind="{...props}"
