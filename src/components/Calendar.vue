@@ -56,6 +56,7 @@ const drillUp = () => {
 <template>
   <div class="vue-kalendar">
     <Navigation
+      v-if="showNavigation"
       :drill-up="drillUp"
       :update-active-start-date="updateActiveStartDate"
       :view="view"

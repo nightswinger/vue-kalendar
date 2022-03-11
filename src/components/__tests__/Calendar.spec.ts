@@ -9,4 +9,11 @@ describe('Calendar', () => {
 
     expect(navigation.exists()).toBe(true)
   })
+
+  it('does not render Navigation when showNavigation prop is false', () => {
+    const wrapper = shallowMount(Calendar, { props: { showNavigation: false } })
+    const navigation = wrapper.findComponent(Navigation)
+
+    expect(navigation.exists()).toBe(false)
+  })
 })
