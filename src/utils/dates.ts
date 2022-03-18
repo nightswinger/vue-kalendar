@@ -1,4 +1,4 @@
-export function getBeginOfCenturyYear(date: Date) {
+export function getBeginOfCenturyYear (date: Date) {
   const year = date.getFullYear()
   const centuryYear = year + ((-year + 1) % 100)
 
@@ -9,38 +9,38 @@ export function getBeginOfCenturyYear(date: Date) {
   return newDate
 }
 
-export function getBeginOfDay(date: Date) {
+export function getBeginOfDay (date: Date) {
   const newDate = new Date(date.getTime())
   newDate.setHours(0, 0, 0, 0)
 
   return newDate
 }
 
-export function getBeginOfDecadeYear(date: Date) {
+export function getBeginOfDecadeYear (date: Date) {
   const year = date.getFullYear()
   const decadeYear = year + ((-year + 1) % 10)
 
   const newDate = new Date()
   newDate.setFullYear(decadeYear, 0, 1)
   newDate.setHours(0, 0, 0, 0)
-  
+
   return newDate
 }
 
-export function getBeginOfMonth(date: Date) {
+export function getBeginOfMonth (date: Date) {
   const year = date.getFullYear()
   const month = date.getMonth()
-  
+
   return new Date(year, month, 1, 0, 0, 0, 0)
 }
 
-export function getBeginOfYear(date: Date) {
+export function getBeginOfYear (date: Date) {
   const year = date.getFullYear()
 
   return new Date(year, 0, 1, 0, 0, 0, 0)
 }
 
-export function getBeginOfWeek(date: Date, i: number = 0) {
+export function getBeginOfWeek (date: Date, i: number = 0) {
   const year = date.getFullYear()
   const month = date.getMonth()
   const day = date.getDate() - getDayOfWeek(date, i)
@@ -48,22 +48,22 @@ export function getBeginOfWeek(date: Date, i: number = 0) {
   return new Date(year, month, day)
 }
 
-export function getDayOfWeek(date: Date, i: number = 0) {
+export function getDayOfWeek (date: Date, i: number = 0) {
   const weekday = date.getDay()
   return (weekday + i) % 7
 }
 
-export function getDaysInMonth(date: Date) {
+export function getDaysInMonth (date: Date) {
   return getEndOfMonth(date).getDate()
 }
 
-export function getEndOfCenturyYear(date: Date) {
+export function getEndOfCenturyYear (date: Date) {
   const nextCenturyYear = getYearsSince(date, 100)
 
   return new Date(nextCenturyYear.getTime() - 1)
 }
 
-export function getEndOfDay(date: Date) {
+export function getEndOfDay (date: Date) {
   const year = date.getFullYear()
   const month = date.getMonth()
   const day = date.getDate() + 1
@@ -72,21 +72,21 @@ export function getEndOfDay(date: Date) {
   return new Date(beginOfNextMonth.getTime() - 1)
 }
 
-export function getEndOfDecadeYear(date: Date) {
+export function getEndOfDecadeYear (date: Date) {
   const beginOfDecadeYear = getBeginOfDecadeYear(date)
   const nextDecadeYear = getYearsSince(beginOfDecadeYear, 10)
 
   return new Date(nextDecadeYear.getTime() - 1)
 }
 
-export function getEndOfYear(date: Date) {
+export function getEndOfYear (date: Date) {
   const year = date.getFullYear() + 1
   const beginOfNextYear = new Date(year, 0, 1, 0, 0, 0, 0)
 
   return new Date(beginOfNextYear.getTime() - 1)
 }
 
-export function getMonthsAgo(date: Date, n: number) {
+export function getMonthsAgo (date: Date, n: number) {
   const result = new Date(date.getTime())
   const month = result.getMonth()
   result.setMonth(month - n)
@@ -94,7 +94,7 @@ export function getMonthsAgo(date: Date, n: number) {
   return result
 }
 
-export function getMonthsSince(date: Date, n: number) {
+export function getMonthsSince (date: Date, n: number) {
   const result = new Date(date.getTime())
   const month = result.getMonth()
   result.setMonth(month + n)
@@ -102,7 +102,7 @@ export function getMonthsSince(date: Date, n: number) {
   return result
 }
 
-export function getWeekNumber(date: Date) {
+export function getWeekNumber (date: Date) {
   const beginOfWeek = getBeginOfWeek(date)
   let year = date.getFullYear() + 1
   let dayInWeekOne
@@ -117,7 +117,7 @@ export function getWeekNumber(date: Date) {
   return Math.round((beginOfWeek.getTime() - beginOfFirstWeek.getTime()) / (8.64e7 * 7)) + 1
 }
 
-export function getYearsAgo(date: Date, n: number) {
+export function getYearsAgo (date: Date, n: number) {
   const result = new Date(date.getTime())
   const year = result.getFullYear()
   result.setFullYear(year - n)
@@ -125,7 +125,7 @@ export function getYearsAgo(date: Date, n: number) {
   return result
 }
 
-export function getYearsSince(date: Date, n: number) {
+export function getYearsSince (date: Date, n: number) {
   const result = new Date(date.getTime())
   const year = result.getFullYear()
   result.setFullYear(year + n)
@@ -133,7 +133,7 @@ export function getYearsSince(date: Date, n: number) {
   return result
 }
 
-export function getEndOfMonth(date: Date) {
+export function getEndOfMonth (date: Date) {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const beginOfNextMonth = new Date(year, month, 1, 0, 0, 0, 0)

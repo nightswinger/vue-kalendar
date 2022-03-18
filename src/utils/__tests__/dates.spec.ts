@@ -1,4 +1,4 @@
-import { getDayOfWeek, getWeekNumber } from "../dates"
+import { getDayOfWeek, getWeekNumber } from '../dates'
 
 describe('getDayOfWeek', () => {
   it('returns proper day of the week', () => {
@@ -15,7 +15,7 @@ describe('getWeekNumber', () => {
     const month = 0
     const startDate = 3
 
-    for(let currentDate = startDate; currentDate < startDate + 7; currentDate += 1) {
+    for (let currentDate = startDate; currentDate < startDate + 7; currentDate += 1) {
       const date = new Date(year, month, currentDate)
       const weekNumber = getWeekNumber(date)
 

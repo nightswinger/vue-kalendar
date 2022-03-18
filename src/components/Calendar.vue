@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { provide, watchEffect } from 'vue';
-import MonthView from './MonthView.vue';
-import Navigation from './Navigation.vue';
-import YearView from './YearView.vue';
-import DecadeView from './DecadeView.vue';
-import CenturyView from './CenturyView.vue';
-import { CalendarStoreKey, useCalendar } from '../utils/hooks';
+import { provide, watchEffect } from 'vue'
+import MonthView from './MonthView.vue'
+import Navigation from './Navigation.vue'
+import YearView from './YearView.vue'
+import DecadeView from './DecadeView.vue'
+import CenturyView from './CenturyView.vue'
+import { CalendarStoreKey, useCalendar } from '../utils/hooks'
 
 const emit = defineEmits(['update:modelValue'])
 

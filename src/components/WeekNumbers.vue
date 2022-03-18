@@ -1,6 +1,6 @@
-<script setup lang="ts">import { computed } from 'vue';
-import { getBeginOfWeek, getDayOfWeek, getDaysInMonth, getWeekNumber } from '../utils/dates';
-import WeekNumber from './WeekNumber.vue';
+<script setup lang="ts">import { computed } from 'vue'
+import { getBeginOfWeek, getDayOfWeek, getDaysInMonth, getWeekNumber } from '../utils/dates'
+import WeekNumber from './WeekNumber.vue'
 
 const props = defineProps<{
   activeStartDate: Date

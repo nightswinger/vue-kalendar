@@ -1,4 +1,4 @@
-import { computed, InjectionKey, reactive } from "vue";
+import { computed, InjectionKey, reactive } from 'vue'
 import {
   getBeginOfCenturyYear,
   getBeginOfDecadeYear,
@@ -8,13 +8,13 @@ import {
   getEndOfDecadeYear,
   getEndOfMonth,
   getEndOfYear
-} from '../utils/dates';
+} from '../utils/dates'
 
 export type CalendarStore = ReturnType<typeof useCalendar>
 
 export const CalendarStoreKey: InjectionKey<CalendarStore> = Symbol('CalendarStore')
 
-function getEndDate(date: Date, view: string = 'month') {
+function getEndDate (date: Date, view: string = 'month') {
   switch (view) {
     case 'month':
       return getEndOfDay(date)
@@ -29,7 +29,7 @@ function getEndDate(date: Date, view: string = 'month') {
   }
 }
 
-export function useCalendar(props: any) {
+export function useCalendar (props: any) {
   const state = reactive({
     activeStartDate: props.activeStartDate || new Date(),
     value: props.selectRange ? [...props.modelValue] : props.modelValue || new Date(),
@@ -37,7 +37,7 @@ export function useCalendar(props: any) {
   })
 
   const activeStartDate = computed(() => {
-    switch(view.value) {
+    switch (view.value) {
       case 'month':
         return getBeginOfMonth(state.activeStartDate)
       case 'year':
@@ -50,7 +50,7 @@ export function useCalendar(props: any) {
         throw new Error(`Invalid view: ${view.value}`)
     }
   })
-  const updateActiveStartDate = (date: Date) => state.activeStartDate = date
+  const updateActiveStartDate = (date: Date) => (state.activeStartDate = date)
 
   const value = computed(() => state.value)
   const isRange = computed(() => !!props.selectRange)
@@ -65,13 +65,13 @@ export function useCalendar(props: any) {
   }
 
   const updateValue = (date: Date) => {
-    if (!isRange.value) return state.value = date
-    
+    if (!isRange.value) return (state.value = date)
+
     if (state.value.length === 1) {
       const [begin] = state.value
-      state.value = begin < date ? 
-        [begin, getEndDate(date, props.maxDetail)] :
-        [date, getEndDate(begin, props.maxDetail)]
+      state.value = begin < date
+        ? [begin, getEndDate(date, props.maxDetail)]
+        : [date, getEndDate(begin, props.maxDetail)]
     } else {
       state.value = [date]
     }
@@ -88,7 +88,7 @@ export function useCalendar(props: any) {
     }
     return props.maxDetail
   })
-  const updateView = (v: string) => state.view = v
+  const updateView = (v: string) => (state.view = v)
 
   const maxDetail = computed(() => props.maxDetail)
   const minDetail = computed(() => props.minDetail)

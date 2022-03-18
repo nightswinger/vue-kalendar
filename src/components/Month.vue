@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue';
-import { getBeginOfMonth, getEndOfMonth } from '../utils/dates';
-import { CalendarStoreKey, CalendarStore } from '../utils/hooks';
-import Tile from './Tile.vue';
+import { computed, inject } from 'vue'
+import { getBeginOfMonth, getEndOfMonth } from '../utils/dates'
+import { CalendarStoreKey, CalendarStore } from '../utils/hooks'
+import Tile from './Tile.vue'
 
 const props = defineProps<{
   date: Date

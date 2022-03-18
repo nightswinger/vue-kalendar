@@ -1,7 +1,7 @@
-<script setup lang="ts">import { computed, inject } from 'vue';
-import { getBeginOfDay, getEndOfDay, getMonthsSince } from '../utils/dates';
-import { CalendarStore, CalendarStoreKey } from '../utils/hooks';
-import Tile from './Tile.vue';
+<script setup lang="ts">import { computed, inject } from 'vue'
+import { getBeginOfDay, getEndOfDay } from '../utils/dates'
+import { CalendarStore, CalendarStoreKey } from '../utils/hooks'
+import Tile from './Tile.vue'
 
 const props = defineProps<{
   currentMonth: number
@@ -27,7 +27,7 @@ const isNow = (date: Date) => {
   const beginOfDay = getBeginOfDay(now)
   const endOfDay = getEndOfDay(now)
 
-  return  beginOfDay <= date && endOfDay >= date 
+  return beginOfDay <= date && endOfDay >= date
 }
 const isWeekend = (date: Date) => {
   const weekday = date.getDay()
@@ -48,7 +48,7 @@ const formatDay = (date: Date) => Intl.DateTimeFormat('en-US', { day: 'numeric' 
 const onClick = (event: MouseEvent) => {
   if (props.date.getMonth() !== props.currentMonth) {
     updateActiveStartDate(props.date)
-    
+
     const { target } = event
     if (!(target instanceof HTMLElement)) return
 

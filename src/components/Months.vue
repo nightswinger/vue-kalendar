@@ -1,6 +1,6 @@
-<script setup lang="ts">import { computed } from 'vue';
+<script setup lang="ts">import { computed } from 'vue'
 import Month from './Month.vue'
-import TileGroup from './TileGroup.vue';
+import TileGroup from './TileGroup.vue'
 
 const props = defineProps<{
   activeStartDate: Date

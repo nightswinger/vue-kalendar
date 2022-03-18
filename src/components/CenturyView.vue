@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { inject } from 'vue';
-import Decades from './Decades.vue';
-import type { CalendarStore } from '../utils/hooks';
-import { CalendarStoreKey } from '../utils/hooks';
+import { inject } from 'vue'
+import Decades from './Decades.vue'
+import type { CalendarStore } from '../utils/hooks'
+import { CalendarStoreKey } from '../utils/hooks'
 
 const {
-  activeStartDate,
+  activeStartDate
 } = inject(CalendarStoreKey) as CalendarStore
 </script>
 

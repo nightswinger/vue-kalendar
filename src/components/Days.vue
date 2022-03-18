@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { getDayOfWeek, getDaysInMonth } from '../utils/dates';
+import { computed } from 'vue'
+import { getDayOfWeek, getDaysInMonth } from '../utils/dates'
 import Day from './Day.vue'
-import TileGroup from './TileGroup.vue';
+import TileGroup from './TileGroup.vue'
 
 const props = defineProps<{
   activeStartDate: Date

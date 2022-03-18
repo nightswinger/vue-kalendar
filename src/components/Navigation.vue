@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue';
+import { computed, inject } from 'vue'
 import {
   getBeginOfCenturyYear,
   getBeginOfDecadeYear,
@@ -11,9 +11,9 @@ import {
   getMonthsSince,
   getYearsAgo,
   getYearsSince
-} from '../utils/dates';
-import type { CalendarStore } from '../utils/hooks';
-import { CalendarStoreKey } from '../utils/hooks';
+} from '../utils/dates'
+import type { CalendarStore } from '../utils/hooks'
+import { CalendarStoreKey } from '../utils/hooks'
 
 const props = defineProps<{
   drillUp: Function

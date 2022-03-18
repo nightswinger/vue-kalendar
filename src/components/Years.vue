@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { getBeginOfDecadeYear } from '../utils/dates';
-import TileGroup from './TileGroup.vue';
-import Year from './Year.vue';
+import { computed } from 'vue'
+import { getBeginOfDecadeYear } from '../utils/dates'
+import TileGroup from './TileGroup.vue'
+import Year from './Year.vue'
 
 const props = defineProps<{
   activeStartDate: Date

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { inject } from 'vue';
-import { getBeginOfMonth, getDayOfWeek } from '../utils/dates';
-import type { CalendarStore } from '../utils/hooks';
-import { CalendarStoreKey } from '../utils/hooks';
-import Flex from './Flex.vue';
+import { inject } from 'vue'
+import { getBeginOfMonth, getDayOfWeek } from '../utils/dates'
+import type { CalendarStore } from '../utils/hooks'
+import { CalendarStoreKey } from '../utils/hooks'
+import Flex from './Flex.vue'
 
 const props = defineProps<{
   localeFirstDayOfYear?: number
