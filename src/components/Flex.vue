@@ -30,7 +30,10 @@ onUpdated(() => styleChildComponents())
 </script>
 
 <template>
-  <div ref="root" :style="{ display: 'flex', flexWrap: flexWrap }">
-    <slot></slot>
+  <div
+    ref="root"
+    :style="{ display: 'flex', flexWrap: flexWrap }"
+  >
+    <slot />
   </div>
 </template>

@@ -19,6 +19,6 @@ const computedClass = computed(() => {
     :disabled="disabled"
     type="button"
   >
-    <slot></slot>
+    <slot />
   </button>
 </template>

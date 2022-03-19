@@ -22,11 +22,14 @@ const formatShortWeekday = (date: Date) => Intl.DateTimeFormat(locale.value, { w
 </script>
 
 <template>
-  <Flex class="vue-kalendar__month-view__weekdays" :count="7">
+  <Flex
+    class="vue-kalendar__month-view__weekdays"
+    :count="7"
+  >
     <div
       v-for="weekday in 7"
-      class="vue-kalendar__month-view__weekdays__weekday"
       :key="weekday"
+      class="vue-kalendar__month-view__weekdays__weekday"
     >
       <abbr
         :aria-label="formatWeekday(weekdayDate(weekday))"

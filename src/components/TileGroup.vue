@@ -22,11 +22,15 @@ const range = (start: number, end: number, step = 1) => {
 </script>
 
 <template>
-  <Flex :count="count" :offset="offset" wrap>
+  <Flex
+    :count="count"
+    :offset="offset"
+    wrap
+  >
     <component
+      :is="tile"
       v-for="point in range(start, end, step)"
       :key="point"
-      :is="tile"
       :current-month="currentMonth"
       :date="dateTransform(point)"
     />

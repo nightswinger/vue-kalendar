@@ -144,36 +144,36 @@ const prevDoubleActiveEndDate = computed(() => {
   <div class="vue-kalendar__navigation">
     <button
       v-if="view !== 'century'"
-      @click="() => updateActiveStartDate(prevDoubleActiveStartDate)"
       :disabled="minDate ? minDate >= prevDoubleActiveEndDate : false"
+      @click="() => updateActiveStartDate(prevDoubleActiveStartDate)"
     >
       «
     </button>
     <button
-      @click="() => updateActiveStartDate(prevActiveStartDate)"
       :disabled="minDate ? minDate >= prevActiveEndDate : false"
+      @click="() => updateActiveStartDate(prevActiveStartDate)"
     >
       ‹
     </button>
     <button
-      @click="() => drillUp()"
       :disabled="view === 'century' || view === minDetail"
       :style="{ flexGrow: 1 }"
+      @click="() => drillUp()"
     >
       <span>
         {{ label }}
       </span>
     </button>
     <button
-      @click="() => updateActiveStartDate(nextActiveStartDate)"
       :disabled="maxDate ? nextActiveStartDate >= maxDate : false"
+      @click="() => updateActiveStartDate(nextActiveStartDate)"
     >
       ›
     </button>
     <button
       v-if="view !== 'century'"
-      @click="() => updateActiveStartDate(nextDoubleActiveStartDate)"
       :disabled="maxDate ? nextDoubleActiveStartDate >= maxDate : false"
+      @click="() => updateActiveStartDate(nextDoubleActiveStartDate)"
     >
       »
     </button>
