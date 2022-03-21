@@ -16,7 +16,7 @@ const styleChildComponents = () => {
   if (!root.value) return
 
   const { children } = root.value
-  Array.from(children as HTMLCollectionOf<HTMLElement>).map((child, index) => {
+  Array.from(children as HTMLCollectionOf<HTMLElement>).forEach((child, index) => {
     child.style.flexBasis = flexBasis
     child.style.flexGrow = '0'
     child.style.flexShrink = '0'
