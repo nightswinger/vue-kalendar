@@ -75,6 +75,8 @@ export function useCalendar (props: any) {
     } else {
       state.value = [date]
     }
+
+    return state.value.slice()
   }
 
   const allViews = ['century', 'decade', 'year', 'month']
