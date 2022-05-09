@@ -47,14 +47,16 @@ const formatDay = (date: Date) => Intl.DateTimeFormat('en-US', { day: 'numeric' 
 
 const onClick = (event: MouseEvent) => {
   if (props.date.getMonth() !== props.currentMonth) {
-    updateActiveStartDate(props.date)
-
     const { target } = event
     if (!(target instanceof HTMLElement)) return
 
     target?.blur()
   }
-  updateValue(props.date)
+
+  const currentDate = updateValue(props.date)
+  Array.isArray(currentDate)
+    ? updateActiveStartDate(currentDate[0])
+    : updateActiveStartDate(props.date)
 }
 
 const disabled = computed(() => {
